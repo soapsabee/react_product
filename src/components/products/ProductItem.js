@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Col,Card,Button } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { productsDelete } from '../../actions';
+
 class ProductItem extends Component {
 
     constructor(props){
@@ -7,6 +10,7 @@ class ProductItem extends Component {
     }
 
     delProduct(id){
+        this.props.productsDelete(id);
     }
 
     render() {
@@ -32,5 +36,9 @@ class ProductItem extends Component {
 
 }
 
-export default ProductItem;
+const mapStatetoProps = ({products}) => {
+    return products
+}
+
+export default connect(mapStatetoProps, {productsDelete})(ProductItem);
 

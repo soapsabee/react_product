@@ -6,30 +6,10 @@ class Monitor extends Component {
 
     constructor(props) {
         super(props);
-        const { products } = props;
-        this.addProduct = this.addProduct.bind(this);
-        this.delProduct = this.delProduct.bind(this);
-        console.log("product:" + products)
     }
 
     componentDidMount() {
-        console.log(123);
-
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.products !== nextProps.products) {
-            console.log(nextProps.products);
-        }
-    }
-
-    addProduct(product) {
-        console.log(product);
-        
-    }
-
-    delProduct(productID){
-        console.log("productID:"+productID)
+   
     }
 
     render() {
@@ -37,7 +17,7 @@ class Monitor extends Component {
         return (
             <div>
                 <Container>
-                    <ProuductList products={products} onDelProduct={this.delProduct}/>
+                    <ProuductList products={products}/>
                 </Container>
             </div>
         )
