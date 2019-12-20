@@ -1,48 +1,51 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
 import { Form, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { productsAdd } from '../../actions';
 
-class ProductForm extends React.Component {
-
+class ProductForm extends Component {
+    
     constructor(props) {
         super(props)
+        this.state = { productName : '',
+                       productPrice : '',
+                       productTag : '',
+                       productDate : ''   
+                     }
     }
-    renderFields () {
-        const formFields = [
-            { name : "productName", label:"ชื่อสินค้า", type: "text", placeholder:"ใส่ชื่อสินค้า" },
-            { name : "productPrice", label:"ราคาสินค้า" , type: "number", placeholder: "ราคาสินค้า"},
-            { name : "productTag", label:"Tag สินค้า" , type: "Text", placeholder: "ประเภทสินค้า"}
-        ]
-        return formFields.map(( { name , label , type , placeholder} ) => {
-            return (
-                <Form.Group key={name}>
-                <Form.Label>{label}</Form.Label>
-                <Form.Control name={name} type={type} placeholder={placeholder}  required onChange={(e) => this.addProduct(e.target.value)} />
-                </Form.Group>
-            )
+
+
+    componentWillUpdate(nextProps,nextState){
+        console.log("nextState:"+JSON.stringify(nextState));
+        this.props.productsAdd(nextState)
+    }
+
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.setState({
+            productName : this.getPdName.value,
+            productPrice : this.getPdPrice.value,
+            productTag : this.getPdTag.value,
+            productDate : this.getPdTag.value
         })
-    }
-
-    addProduct (values) {
-     
-    
-        console.log("addProduct:"+values);
-        
-    }
-
-    handleChange(event) {
-        console.log(event);
         
     }
 
     render() {
         return (
             <div className="container mt-4">
-                <Form>
-                    {this.renderFields()}
-                    <Button variant="primary" type="button">
+                <Form onSubmit={this.handleSubmit}>
+                <Form.Group >
+                <Form.Label>ชื่อสินค้า</Form.Label>
+                <Form.Control name="productName" type="text" placeholder="ชื่อสินค้า" required ref={input => this.getPdName = input} />
+                <Form.Label>ราคาสินค้า</Form.Label>
+                <Form.Control name="productPrice" type="number" placeholder="ราคาสินค้า" required ref={input => this.getPdPrice = input} />
+                <Form.Label>Tag สินค้า</Form.Label>
+                <Form.Control name="productTag" type="text" placeholder="ประเภทสินค้า" required ref={input => this.getPdTag = input} />
+                <Form.Label>วันเวลา</Form.Label>
+                <Form.Control name="productDate" type="text" placeholder="ด/ว/ป" required ref={input => this.getPdDate = input} />
+                </Form.Group >
+                    <Button type="submit">
                         ยืนยัน
                     </Button>
                 </Form>
@@ -52,15 +55,9 @@ class ProductForm extends React.Component {
 
 }
 
-const validate = (values) => {
-    console.log(values);
-    
+
+const mapStateToProps = state => {
+     return { state: null }; 
 }
 
-const mapStateToProps = ({products}) => {
-    return products
-}
-
-ProductForm = reduxForm({ validate ,form: "productForm" })(ProductForm);
-
-export default connect(mapStateToProps, {productsAdd})(ProductForm);
+export default connect(mapStateToProps,{productsAdd})(ProductForm);

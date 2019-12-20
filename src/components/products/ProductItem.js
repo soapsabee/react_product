@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Col,Card,Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { productsDelete } from '../../actions';
+import { Link } from 'react-router-dom';
 
 class ProductItem extends Component {
 
@@ -26,7 +27,7 @@ class ProductItem extends Component {
                             {price}
                             {tag}
                         </Card.Text>
-                        <Button variant="primary">Edit</Button>
+                        <Link to={`/product/edit/${id}`}><Button variant="primary">Edit</Button></Link>
                         <Button variant="danger" onClick={() => this.delProduct(id)}>Delete</Button>
                     </Card.Body>
                 </Card>
@@ -36,8 +37,8 @@ class ProductItem extends Component {
 
 }
 
-const mapStatetoProps = ({products}) => {
-    return products
+const mapStatetoProps = (state) => {
+    return {state:null}
 }
 
 export default connect(mapStatetoProps, {productsDelete})(ProductItem);
