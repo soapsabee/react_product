@@ -17,6 +17,22 @@ class ProductForm extends Component {
                      }
     }
 
+    shouldComponentUpdate = (nextProps,nextState) => {
+
+        if(nextState.productID != this.state.productID && nextState.productName != this.state.productName){
+            console.log("statechange: " + JSON.stringify(nextState))
+            if(this.props.onProductSubmit == "product_add" ){
+                this.props.productsAdd(nextState)
+        
+            }else if(this.props.onProductSubmit == "product_edit" ){
+                this.props.productsEdit(nextState)
+            }
+        }
+
+        return true
+
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.setState({
@@ -26,17 +42,6 @@ class ProductForm extends Component {
             productTag : this.getPdTag.value,
             productDate : this.getPdDate.value
         })
-
-        if(this.props.onProductSubmit == "product_add" ){
-            console.log("pd_add:"+this.state);
-            
-            this.props.productsAdd(this.state)
-    
-        }else if(this.props.onProductSubmit == "product_edit" ){
-            console.log("pd_edit: " +this.state);
-            
-            this.props.productsEdit(this.state)
-        }
                 
     }
 
