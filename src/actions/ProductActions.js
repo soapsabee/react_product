@@ -20,6 +20,15 @@ export const productsFetchById = id => {
     }
 }
 
+export const productsEdit = data => {
+    return dispatch => {
+        axios.put(`https://sleepy-reef-53571.herokuapp.com/api/products/87`,{title:data.productName,price:data.productPrice,create_at:data.productDate,tag:data.productTag}).then(
+            res => {
+                dispatch({ type: "products_edit", payload: null });
+            }
+        )
+    }
+}
 
 
 export const productsAdd = data => {

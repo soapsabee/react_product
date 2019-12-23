@@ -7,6 +7,8 @@ export default function(state = [], action){
             return action.payload;
         case "products_add":
             return action.payload;
+        case "products_edit":
+            return action.payload;
         default:
             return state;
     }
