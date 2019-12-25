@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col,Card,Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { productsDelete } from '../../actions';
+import { productsDelete , productsFetchById} from '../../actions';
 import { Link } from 'react-router-dom';
 
 class ProductItem extends Component {
@@ -12,7 +12,7 @@ class ProductItem extends Component {
 
     delProduct(id){
         this.props.productsDelete(id);
-    }
+    }    
 
     render() {
         
@@ -41,5 +41,5 @@ const mapStatetoProps = (state) => {
     return {state:null}
 }
 
-export default connect(mapStatetoProps, {productsDelete})(ProductItem);
+export default connect(mapStatetoProps, {productsDelete , productsFetchById})(ProductItem);
 

@@ -15,46 +15,18 @@ class ProductEdit extends Component {
         
         }
        　
-        componentDidMount = () =>{
-
+     
+     componentDidMount = () =>{
+            console.log(this.props.match.params.id)
             if(this.props.match.params.id){
                this.props.productsFetchById(this.props.match.params.id)
-           
-            
-                // this.setState({
-                //     valueDefault: ''
-                // })
             }
-                
-      
+              
     }
 
-    shouldComponentUpdate = (nextProps, nextState) =>{
-        console.log("nextState: "+ JSON.stringify(nextState));
-        console.log("nextProps: "+ JSON.stringify(nextProps.products));
-       return true
-        // if(showName !== nextState.name){
-        //     console.log("stateChange");
-        //     return true;
-        // }else{
-        //     console.log("stateNotChange");
-        //     return false;
-
-        // }
-
-        
-    }
-
-    showInfoProducts() {
-        return this.props.products && this.props.products.map(product => (
-            <ProductForm key={product.id} {...product} onProductSubmit = {"product_edit"}/>
-        ))
-    }
-   
+ 
     render() {
-        const { match } = this.props;
-        console.log(match);
-        
+        const { match , state} = this.props;
         return(
             <div className="container"> 
             <Header/>
@@ -65,7 +37,7 @@ class ProductEdit extends Component {
             )}
             {match.path.indexOf("edit") > 0 && (
                 <div>
-                    {this.showInfoProducts()}
+                    <ProductForm matchID = {this.props.match.params.id } onProductSubmit = {"product_edit"}/>
                 </div>
             )}
             </div>
@@ -76,7 +48,8 @@ class ProductEdit extends Component {
 }
 
 const mapStateToProps = ({products}) => {
+        
     return { products }
 }
 
-export default connect(mapStateToProps,{productsFetchById})(ProductEdit);
+export default connect(mapStateToProps , {productsFetchById})(ProductEdit);
